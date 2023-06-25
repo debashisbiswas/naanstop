@@ -3,6 +3,24 @@
 	import PricingCard from './PricingCard.svelte';
 
 	let organicChickenSelected = false;
+
+	const options = [
+		{
+			servings: 4,
+			basePrice: 52,
+			organicPrice: 62
+		},
+		{
+			servings: 8,
+			basePrice: 104,
+			organicPrice: 124
+		},
+		{
+			servings: 12,
+			basePrice: 144,
+			organicPrice: 172
+		}
+	];
 </script>
 
 <div class="mt-16 grid w-full place-items-center">
@@ -40,7 +58,7 @@
 		<h2 class="text-3xl">Pricing</h2>
 
 		<div class="mb-4">
-			<label class="flex cursor-pointer items-center">
+			<label class="flex cursor-pointer items-center justify-center">
 				<input
 					type="checkbox"
 					bind:checked={organicChickenSelected}
@@ -50,9 +68,12 @@
 			</label>
 
 			<div class="grid grid-cols-3 gap-8">
-				<PricingCard header="4 servings" priceDisplay="$52" />
-				<PricingCard header="8 servings" priceDisplay="$104" />
-				<PricingCard header="12 servings" priceDisplay="$144" />
+				{#each options as option}
+					<PricingCard
+						header="{option.servings} servings"
+						price={organicChickenSelected ? option.organicPrice : option.basePrice}
+					/>
+				{/each}
 			</div>
 		</div>
 
